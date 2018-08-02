@@ -4,7 +4,7 @@ import PokeMapStyle from './map-style'
 class PokeMap extends PokeElement {
   constructor () {
     super()
-    this._map = {}
+    this._map = null
     const shadowRoot = this.attachShadow({mode: 'open'})
     shadowRoot.innerHTML = `
       <style>
@@ -23,12 +23,22 @@ class PokeMap extends PokeElement {
     return 'poke-map'
   }
 
+  attributeChangedCallback (name, oldValue, newValue) {
+    if (name === 'lat' || name === 'lng') {
+      this._changeCenter(+this.lat, +this.lng)
+    }
+  }
+
   connectedCallback () {
     this._loadMap()
   }
 
   disconnectedCallback () {
     this._map = null
+  }
+
+  _changeCenter (lat, lng) {
+    this._map && this._map.setCenter({ lat, lng })
   }
 
   _loadMap () {

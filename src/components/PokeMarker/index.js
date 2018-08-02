@@ -9,12 +9,22 @@ export class PokeMarker extends PokeElement {
     return 'poke-marker'
   }
 
+  attributeChangedCallback (name, oldValue, newValue) {
+    if (name === 'lat' || name === 'lng') {
+      this._changePosition(+this.lat, +this.lng)
+    }
+  }
+
   connectedCallback () {
     this.draw()
   }
 
   disconnectedCallback () {
     this._marker && this._marker.setMap(null)
+  }
+
+  _changePosition (lat, lng) {
+    this._marker && this._marker.setPosition({ lat, lng })
   }
 
   draw () {
