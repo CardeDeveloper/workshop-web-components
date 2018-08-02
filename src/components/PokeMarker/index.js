@@ -1,5 +1,6 @@
-/* global window, google, HTMLElement */
-export class PokeMarker extends HTMLElement {
+/* global google */
+import PokeElement from '../PokeElement'
+export class PokeMarker extends PokeElement {
   constructor () {
     super()
     this._marker = null
@@ -25,22 +26,6 @@ export class PokeMarker extends HTMLElement {
       position: { lat: +this.lat, lng: +this.lng },
       map: map
     })
-  }
-
-  get lat () {
-    return this.getAttribute('lat')
-  }
-
-  set lat (newLat) {
-    this.setAttribute('lat', newLat)
-  }
-
-  get lng () {
-    return this.getAttribute('lng')
-  }
-
-  set lng (newLng) {
-    this.setAttribute('lng', newLng)
   }
 
   get marker () {

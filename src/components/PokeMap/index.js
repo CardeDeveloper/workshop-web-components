@@ -1,6 +1,7 @@
-/* global window, google, HTMLElement */
+/* global google */
+import PokeElement from '../PokeElement'
 import PokeMapStyle from './map-style'
-class PokeMap extends HTMLElement {
+class PokeMap extends PokeElement {
   constructor () {
     super()
     this._map = {}
@@ -37,22 +38,6 @@ class PokeMap extends HTMLElement {
       styles: PokeMapStyle
     }
     this._map = new google.maps.Map(this.shadowRoot.querySelector('#map'), config)
-  }
-
-  get lat () {
-    return this.getAttribute('lat')
-  }
-
-  set lat (newLat) {
-    this.setAttribute('lat', newLat)
-  }
-
-  get lng () {
-    return this.getAttribute('lng')
-  }
-
-  set lng (newLng) {
-    this.setAttribute('lng', newLng)
   }
 
   get map () {
