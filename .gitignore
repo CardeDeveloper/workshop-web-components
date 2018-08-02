@@ -1,0 +1,8 @@
+# Bin files and folders
+node_modules
+
+# keys
+keys.js
+
+# distribution folders
+dist
