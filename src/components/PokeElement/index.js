@@ -16,6 +16,10 @@ class PokeElement extends HTMLElement {
   set lng (newLng) {
     this.setAttribute('lng', newLng)
   }
+
+  static get observedAttributes () {
+    return ['lat', 'lng']
+  }
 }
 
 export default PokeElement
