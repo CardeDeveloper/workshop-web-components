@@ -17,6 +17,7 @@ class PokeMap extends PokeElement {
         <slot></slot>
       </div>
     `
+    this.addEventListener('marker-click', this._handleMarkerClick.bind(this))
   }
 
   static get is () {
@@ -39,6 +40,12 @@ class PokeMap extends PokeElement {
 
   _changeCenter (lat, lng) {
     this._map && this._map.setCenter({ lat, lng })
+  }
+
+  _handleMarkerClick (event) {
+    event.stopPropagation()
+    const { lat, lng } = event.detail
+    this._changeCenter(lat, lng)
   }
 
   _loadMap () {
