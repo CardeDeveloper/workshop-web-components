@@ -1,4 +1,4 @@
-/* global google */
+/* global google, CustomEvent */
 import PokeElement from '../PokeElement'
 export class PokeMarker extends PokeElement {
   constructor () {
@@ -36,10 +36,18 @@ export class PokeMarker extends PokeElement {
       position: { lat: +this.lat, lng: +this.lng },
       map: map
     })
+    this._marker.addListener('click', this.dispatchClick.bind(this))
   }
 
   get marker () {
     return this._marker
+  }
+
+  dispatchClick () {
+    const position = this._marker.getPosition()
+    this.dispatchEvent(new CustomEvent('marker-click', {
+      detail: { lat: position.lat(), lng: position.lng() }, bubbles: true
+    }))
   }
 }
 
