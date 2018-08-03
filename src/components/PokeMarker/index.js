@@ -12,6 +12,10 @@ export class PokeMarker extends PokeElement {
   attributeChangedCallback (name, oldValue, newValue) {
     if (name === 'lat' || name === 'lng') {
       this._changePosition(+this.lat, +this.lng)
+      return true
+    }
+    if (name === 'icon') {
+      this._changeIcon(newValue)
     }
   }
 
@@ -21,6 +25,10 @@ export class PokeMarker extends PokeElement {
 
   disconnectedCallback () {
     this._marker && this._marker.setMap(null)
+  }
+
+  _changeIcon (icon) {
+    this._marker && this._marker.setIcon(icon)
   }
 
   _changePosition (lat, lng) {
@@ -34,9 +42,18 @@ export class PokeMarker extends PokeElement {
     }
     this._marker = new google.maps.Marker({
       position: { lat: +this.lat, lng: +this.lng },
-      map: map
+      map: map,
+      icon: this.icon
     })
     this._marker.addListener('click', this.dispatchClick.bind(this))
+  }
+
+  get icon () {
+    return this.getAttribute('icon')
+  }
+
+  set icon (newIcon) {
+    this.setAttribute('icon', newIcon)
   }
 
   get marker () {
